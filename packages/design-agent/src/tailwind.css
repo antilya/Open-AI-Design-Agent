@@ -91,6 +91,61 @@
     --shadow-card-hover: 0 4px 12px -2px rgba(0, 0, 0, 0.4);
   }
 
+  /*
+   * Host appearance adapter.
+   *
+   * The package keeps its standalone defaults above. When it is mounted by
+   * Open Generative AI, only this scope translates Design Agent's product
+   * chrome vocabulary to the host's semantic appearance contract. Canvas
+   * artwork and Konva-owned colors remain independent of these variables.
+   */
+  .design-agent-studio {
+    --brand-primary: rgb(var(--og-accent));
+    --brand-primary-hover: rgb(var(--og-accent-hover));
+    --brand-accent: rgb(var(--og-secondary-accent));
+    --brand-accent-hover: rgb(var(--og-secondary-accent));
+
+    --primary: rgb(var(--og-accent));
+    --secondary: rgb(var(--og-secondary-accent));
+    --bg-page: rgb(var(--og-canvas));
+    --bg-card: rgb(var(--og-panel));
+    --bg-card-hover: rgb(var(--og-elevated));
+    --bg-elevated: rgb(var(--og-elevated));
+    --text-primary: rgb(var(--og-text));
+    --text-secondary: rgb(var(--og-text-secondary));
+    --text-muted: rgb(var(--og-text-muted));
+    --border-subtle: color-mix(in srgb, rgb(var(--og-contrast)) 10%, rgb(var(--og-panel)));
+    --border-default: color-mix(in srgb, rgb(var(--og-contrast)) 17%, rgb(var(--og-panel)));
+    --border-hover: color-mix(in srgb, rgb(var(--og-contrast)) 24%, rgb(var(--og-panel)));
+
+    --color-success: rgb(var(--og-success));
+    --color-success-bg: color-mix(in srgb, rgb(var(--og-success)) 10%, rgb(var(--og-panel)));
+    --color-warning: rgb(var(--og-secondary-accent));
+    --color-warning-bg: color-mix(in srgb, rgb(var(--og-secondary-accent)) 10%, rgb(var(--og-panel)));
+    --color-error: rgb(var(--og-danger));
+    --color-error-bg: color-mix(in srgb, rgb(var(--og-danger)) 10%, rgb(var(--og-panel)));
+    --color-info: rgb(var(--og-info));
+    --color-info-bg: color-mix(in srgb, rgb(var(--og-info)) 10%, rgb(var(--og-panel)));
+
+    --shadow-sm: 0 1px 2px 0 rgb(var(--og-shadow) / 0.05);
+    --shadow-card: 0 1px 3px 0 rgb(var(--og-shadow) / 0.06), 0 1px 2px -1px rgb(var(--og-shadow) / 0.06);
+    --shadow-card-hover: 0 4px 12px -2px rgb(var(--og-shadow) / 0.08), 0 2px 4px -2px rgb(var(--og-shadow) / 0.04);
+    --shadow-elevated: 0 10px 25px -5px rgb(var(--og-shadow) / 0.08), 0 8px 10px -6px rgb(var(--og-shadow) / 0.04);
+
+    color-scheme: light;
+    font-family: var(--og-font-ui, Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+  }
+
+  .design-agent-studio[data-og-mode="dark"] {
+    --color-success-bg: rgb(var(--og-success) / 0.1);
+    --color-warning-bg: rgb(var(--og-secondary-accent) / 0.1);
+    --color-error-bg: rgb(var(--og-danger) / 0.1);
+    --color-info-bg: rgb(var(--og-info) / 0.1);
+    --shadow-card: 0 1px 3px 0 rgb(var(--og-shadow) / 0.3);
+    --shadow-card-hover: 0 4px 12px -2px rgb(var(--og-shadow) / 0.4);
+    color-scheme: dark;
+  }
+
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
@@ -122,6 +177,15 @@
 
   .dark .glass {
     background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  .design-agent-studio .glass {
+    background-color: rgb(var(--og-panel) / 0.4);
+    border-color: rgb(var(--og-contrast) / 0.1);
+  }
+
+  .design-agent-studio[data-og-mode="dark"] .glass {
+    background-color: rgb(var(--og-panel) / 0.6);
   }
 }
 

@@ -857,13 +857,13 @@ export default function CreativeCanvas({
           language={match[1]}
           showLineNumbers
           PreTag="div"
-          className="scrollbar-subtle !m-0 !p-3 text-[12px]"
+          className="scrollbar-subtle !m-0 !p-3 text-detail"
           {...props}
         >
           {String(children).replace(/\n$/, '')}
         </SyntaxHighlighter>
       ) : (
-        <code className="bg-primary/10 text-primary px-1.5 py-0.5 rounded text-[12px] font-mono" {...props}>
+        <code className="bg-primary/10 text-primary px-1.5 py-0.5 rounded text-detail font-mono" {...props}>
           {children}
         </code>
       );
@@ -1026,7 +1026,7 @@ export default function CreativeCanvas({
   if (!mounted) return null;
 
   return (
-    <div className="h-dvh w-full text-sm flex flex-col bg-bg-page text-primary-text overflow-hidden" style={{ fontFamily: "'Inter', sans-serif" }}>
+    <div className="h-dvh w-full text-sm flex flex-col bg-bg-page text-primary-text overflow-hidden">
       <Toaster position="top-right" reverseOrder={false} />
       <main className="flex h-full w-full overflow-hidden">
         {/* Left Sidebar: Session List — owner only. Embed visitors don't get
@@ -1060,7 +1060,7 @@ export default function CreativeCanvas({
           </div>
           <div className="flex-1 overflow-y-auto scrollbar-subtle">
             {sessions.length === 0 ? (
-              <div className="px-4 py-8 text-center text-secondary-text italic text-[11px]">No previous sessions</div>
+              <div className="px-4 py-8 text-center text-secondary-text italic text-compact">No previous sessions</div>
             ) : (
               sessions.map((s) => (
                 <div
@@ -1086,9 +1086,9 @@ export default function CreativeCanvas({
                         onClick={(e) => e.stopPropagation()}
                       />
                     ) : (
-                      <div className={`flex items-center gap-2 text-[13px] font-semibold transition-colors ${sessionId === s.id ? "text-primary" : "text-primary-text"}`}>
+                      <div className={`flex items-center gap-2 text-ui font-semibold transition-colors ${sessionId === s.id ? "text-primary" : "text-primary-text"}`}>
                         <span className="truncate flex-1">{s.name}</span>
-                        <span className="flex items-center gap-1 text-[10px] text-secondary-text opacity-70">
+                        <span className="flex items-center gap-1 text-caption text-secondary-text opacity-70">
                           <FiImage size={10} /> {s.asset_count}
                         </span>
                       </div>
@@ -1126,7 +1126,7 @@ export default function CreativeCanvas({
             )}
           </div>
           <div className="p-3 border-t border-divider bg-bg-page/30">
-            <div className="flex items-center justify-between text-[10px] text-secondary-text font-medium px-1">
+            <div className="flex items-center justify-between text-caption text-secondary-text font-medium px-1">
               <span>Total Sessions</span>
               <span>{sessions.length}</span>
             </div>
@@ -1201,7 +1201,7 @@ export default function CreativeCanvas({
                   {user?.profile_photo ? (
                     <img src={user.profile_photo} alt="Profile" className="w-full h-full object-cover" />
                   ) : (
-                    <span className="text-[10px] font-bold">
+                    <span className="text-caption font-bold">
                       {(user?.username || "U").substring(0, 2).toUpperCase()}
                     </span>
                   )}
@@ -1227,19 +1227,19 @@ export default function CreativeCanvas({
                         {user?.username || "User"}
                       </span>
                       {user?.plan === "pro" ? (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-primary text-white uppercase tracking-wider">
+                        <span className="text-caption font-bold px-2 py-0.5 rounded bg-primary text-white uppercase tracking-wider">
                           Pro
                         </span>
                       ) : (
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-orange-500/10 text-orange-500 border border-orange-500 uppercase tracking-wider">
+                        <span className="text-caption font-bold px-2 py-0.5 rounded bg-orange-500/10 text-orange-500 border border-orange-500 uppercase tracking-wider">
                           Bronze
                         </span>
                       )}
                     </div>
-                    <span className="text-[11px] text-secondary-text truncate">
+                    <span className="text-compact text-secondary-text truncate">
                       {user?.email}
                     </span>
-                    <div className="mt-2 text-[13px] font-bold text-primary">
+                    <div className="mt-2 text-ui font-bold text-primary">
                       {userBalanceLabel ?? `$ ${user?.balance || "0.00"}`} <span className="font-normal text-secondary-text">available</span>
                     </div>
                   </div>
@@ -1247,7 +1247,7 @@ export default function CreativeCanvas({
                   <div className="py-1">
                     <a 
                       href="mailto:support@vadoo.tv"
-                      className="w-full flex items-center gap-3 px-4 py-2 hover:bg-bg-page transition-colors text-[13px] font-semibold text-primary-text"
+                      className="w-full flex items-center gap-3 px-4 py-2 hover:bg-bg-page transition-colors text-ui font-semibold text-primary-text"
                     >
                       Support
                     </a>
@@ -1259,7 +1259,7 @@ export default function CreativeCanvas({
                         e.stopPropagation();
                         setTheme(resolvedTheme === "dark" ? "light" : "dark");
                       }}
-                      className="w-full flex items-center justify-between px-4 py-2 hover:bg-bg-page transition-colors text-[13px] font-semibold text-primary-text"
+                      className="w-full flex items-center justify-between px-4 py-2 hover:bg-bg-page transition-colors text-ui font-semibold text-primary-text"
                     >
                       <div className="flex items-center gap-3">
                         <span className="text-secondary-text">
@@ -1268,7 +1268,7 @@ export default function CreativeCanvas({
                         Dark Mode
                       </div>
                       <div className={`w-8 h-4 rounded-full relative transition-colors ${resolvedTheme === "dark" ? "bg-primary" : "bg-bg-card-hover"}`}>
-                        <div className={`absolute top-0.5 w-3 h-3 rounded-full bg-black dark:bg-white transition-all ${resolvedTheme === "dark" ? "left-4.5" : "left-0.5"}`} />
+                        <div className={`absolute top-0.5 w-3 h-3 rounded-full bg-primary-text transition-all ${resolvedTheme === "dark" ? "left-4.5" : "left-0.5"}`} />
                       </div>
                     </button>
                   </div>
@@ -1290,7 +1290,7 @@ export default function CreativeCanvas({
             {/* Floating Toolbar */}
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-bg-card border border-divider shadow-2xl px-2 py-1.5 rounded z-20">
               <div className="flex items-center gap-3 px-3">
-                <span className="text-[10px] font-bold text-secondary-text uppercase tracking-widest">{zoomLevel}%</span>
+                <span className="text-caption font-bold text-secondary-text uppercase tracking-widest">{zoomLevel}%</span>
                 <div className="flex items-center gap-1">
                   <button onClick={() => canvasRef.current?.zoomOut()} className="w-5 h-5 rounded border border-divider flex items-center justify-center text-secondary-text hover:text-primary-text hover:border-primary transition-all">-</button>
                   <button onClick={() => canvasRef.current?.zoomIn()} className="w-5 h-5 rounded border border-divider flex items-center justify-center text-secondary-text hover:text-primary-text hover:border-primary transition-all">+</button>
@@ -1321,10 +1321,10 @@ export default function CreativeCanvas({
           {/* Sidebar Header */}
           <div className="p-4 flex items-center justify-between border-b border-divider bg-bg-card">
             <div className="flex flex-col">
-              <h2 className="font-bold text-[13px] text-primary-text uppercase tracking-widest leading-none flex items-center gap-2">
-                <RiSparklingLine className="text-primary" /> Creative Agent
+              <h2 className="font-bold text-ui text-primary-text uppercase tracking-widest leading-none flex items-center gap-2">
+                <RiSparklingLine className="text-primary text-glyph-ui" /> Creative Agent
               </h2>
-              <span className="text-[10px] text-secondary-text mt-1.5">Auto Model • Multi-tool Access</span>
+              <span className="text-caption text-secondary-text mt-1.5">Auto Model • Multi-tool Access</span>
             </div>
             <div className="flex items-center gap-1">
               <Link 
@@ -1371,7 +1371,7 @@ export default function CreativeCanvas({
                 <React.Fragment key={idx}>
                   {showDateHeader && msg.timestamp && (
                     <div className="flex justify-center my-4">
-                      <span className="px-2 py-1 bg-bg-page border border-divider rounded text-[10px] font-medium text-secondary-text shadow-sm">
+                      <span className="px-2 py-1 bg-bg-page border border-divider rounded text-caption font-medium text-secondary-text shadow-sm">
                         {formatDateHeader(msg.timestamp)}
                       </span>
                     </div>
@@ -1379,11 +1379,11 @@ export default function CreativeCanvas({
                   <div className={`flex flex-col gap-2 ${msg.role === "user" ? "items-end" : "items-start"} animate-fade-in-up group`}>
                     <div className="flex items-center gap-2">
                       {msg.role === "assistant" && (
-                        <div className="flex items-center gap-1.5 text-[10px] font-medium text-secondary-text ml-1">
-                          <RiRobot2Line /> Agent
+                        <div className="flex items-center gap-1.5 text-caption font-medium text-secondary-text ml-1">
+                          <RiRobot2Line className="text-glyph-caption" /> Agent
                         </div>
                       )}
-                      <div className={`flex items-center justify-end gap-2 text-[9px] text-secondary-text`}>
+                      <div className={`flex items-center justify-end gap-2 text-micro text-secondary-text`}>
                         {msg.timestamp && <span>{formatTime(msg.timestamp)}</span>}
                       </div>
                       {msg.role === "user" && msg.skill_name && (
@@ -1394,7 +1394,7 @@ export default function CreativeCanvas({
                     </div>
                     <div className={`max-w-[90%] space-y-2 ${msg.role === "user" ? "text-right" : "text-left"}`}>
                       <div className="relative">
-                        <div className={`px-3 py-2 text-[13px] leading-relaxed break-words relative
+                        <div className={`px-3 py-2 text-ui leading-relaxed break-words relative
                           ${msg.role === "user" ? "bg-bg-card-hover text-primary-text rounded-md rounded-tr-none shadow-sm border border-divider" : "text-primary-text bg-bg-page rounded-md rounded-tl-none shadow-sm border border-divider"}`}>
                           
                           {msg.content ? (
@@ -1433,7 +1433,7 @@ export default function CreativeCanvas({
                                           </div>
                                         )}
                                         {!["image", "video", "audio"].includes(att.kind) && (
-                                          <div className="w-full p-4 flex items-center justify-center text-[10px] text-white/70">
+                                          <div className="w-full p-4 flex items-center justify-center text-caption text-white/70">
                                             {att.kind}: {att.asset_label}
                                           </div>
                                         )}
@@ -1502,12 +1502,12 @@ export default function CreativeCanvas({
               {showMentionPopup && (
                 <div className="absolute bottom-full left-0 mb-2 flex items-end gap-3 z-50">
                   <div className="w-72 bg-bg-card border border-divider rounded shadow-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-200">
-                    <div className="p-2 border-b border-divider text-[10px] font-bold text-secondary-text uppercase tracking-widest bg-bg-page/50">
+                    <div className="p-2 border-b border-divider text-caption font-bold text-secondary-text uppercase tracking-widest bg-bg-page/50">
                       Mentions
                     </div>
                     <div className="max-h-60 overflow-y-auto scrollbar-subtle py-1">
                       {filteredAssets.length > 0 && (
-                        <div className="px-3 py-1.5 mt-1 text-[9px] font-bold text-green-500 uppercase opacity-60">Assets</div>
+                        <div className="px-3 py-1.5 mt-1 text-micro font-bold text-green-500 uppercase opacity-60">Assets</div>
                       )}
                       <div className="grid grid-cols-2 gap-2">
                         {filteredAssets.map(asset => (
@@ -1518,16 +1518,16 @@ export default function CreativeCanvas({
                           >
                             {asset.kind === "image" && <img src={asset.url} className="w-7 h-7 rounded border border-divider object-cover shadow-sm" />}
                             {asset.kind === "video" && <video src={asset.url} className="w-7 h-7 rounded border border-divider object-cover shadow-sm" />}
-                            {asset.kind === "audio" && <div className="w-7 h-7 rounded flex items-center justify-center bg-primary/5 text-primary text-[8px] font-bold uppercase tracking-tight">Audio</div>}
+                            {asset.kind === "audio" && <div className="w-7 h-7 rounded flex items-center justify-center bg-primary/5 text-primary text-nano font-bold uppercase tracking-tight">Audio</div>}
                             <div className="flex flex-col">
                               <span className="text-xs font-medium text-primary-text">{asset.asset_label}</span>
-                              <span className="text-[9px] text-secondary-text truncate max-w-[200px]">{asset.kind}</span>
+                              <span className="text-micro text-secondary-text truncate max-w-[200px]">{asset.kind}</span>
                             </div>
                           </button>
                         ))}
                       </div>
                       {filteredSkills.length > 0 && (
-                        <div className="px-3 py-1.5 text-[9px] font-bold text-primary uppercase opacity-60">Skills</div>
+                        <div className="px-3 py-1.5 text-micro font-bold text-primary uppercase opacity-60">Skills</div>
                       )}
                       {filteredSkills.map(skill => (
                         <button
@@ -1573,7 +1573,7 @@ export default function CreativeCanvas({
                 onKeyDown={handleKey}
                 onInput={e => { e.target.style.height = "auto"; e.target.style.height = Math.min(e.target.scrollHeight, 120) + "px"; }}
                 placeholder={activeSkill ? `Oh, Let us create ${activeSkill.name.toLowerCase()}s, start with your ${activeSkill.inputs?.[0]?.replace(/_/g, ' ') || 'idea'}?` : "Start with an idea or mention assets using @..."}
-                className="w-full bg-transparent px-3 py-3 text-[13px] resize-none focus:outline-none min-h-[50px] max-h-[120px] scrollbar-subtle"
+                className="w-full bg-transparent px-3 py-3 text-ui resize-none focus:outline-none min-h-[50px] max-h-[120px] scrollbar-subtle"
                 rows={1}
                 disabled={busy}
               />
@@ -1591,7 +1591,7 @@ export default function CreativeCanvas({
                       <div className="w-5 h-5 rounded overflow-hidden">
                         {att.kind === "image" ? <img src={att.url} className="w-full h-full object-cover" /> : <FiTerminal size={10} />}
                       </div>
-                      <span className="text-[10px] font-bold text-secondary-text">{att.asset_label}</span>
+                      <span className="text-caption font-bold text-secondary-text">{att.asset_label}</span>
                     </div>
                   ))}
                   
@@ -1613,13 +1613,13 @@ export default function CreativeCanvas({
                           : <RiSparklingLine size={10} />
                         }
                       </div>
-                      <span className="text-[10px] font-bold text-primary">{a.asset_label}</span>
+                      <span className="text-caption font-bold text-primary">{a.asset_label}</span>
                     </div>
                   ))}
                   {uploading && (
                     <div className="flex items-center gap-2 px-2 py-1 bg-bg-page border border-divider border-dashed rounded-lg">
                       <div className="w-4 h-4 border-2 border-t-transparent border-primary rounded-full animate-spin" />
-                      <span className="text-[10px] font-bold text-secondary-text">{uploadProgress}%</span>
+                      <span className="text-caption font-bold text-secondary-text">{uploadProgress}%</span>
                     </div>
                   )}
                 </div>
@@ -1641,7 +1641,7 @@ export default function CreativeCanvas({
                   )}
                   <div className="absolute inset-x-0 bottom-0 p-5 bg-gradient-to-t from-black/90 via-black/40 to-transparent">
                     <div className="text-sm font-bold text-white tracking-tight">{hoveredAsset.asset_label}</div>
-                    <div className="text-[10px] text-white/70 mt-1 uppercase tracking-widest font-bold">{hoveredAsset.kind} • Creative Asset</div>
+                    <div className="text-caption text-white/70 mt-1 uppercase tracking-widest font-bold">{hoveredAsset.kind} • Creative Asset</div>
                   </div>
                 </div>
               )}
@@ -1688,12 +1688,12 @@ export default function CreativeCanvas({
                       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-[320px] bg-bg-card border border-divider rounded shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-bottom-2 duration-200">
                         <div className="px-4 py-3 border-b border-divider flex items-center justify-between bg-bg-page/30">
                           <div>
-                            <h3 className="text-[12px] font-bold text-primary-text uppercase tracking-tight">Expert Skills</h3>
+                            <h3 className="text-detail font-bold text-primary-text uppercase tracking-tight">Expert Skills</h3>
                           </div>
                           <Link 
                             href="https://muapi.ai/docs/design-agent-api"
                             target="_blank" 
-                            className="text-[10px] font-bold text-primary hover:underline flex items-center gap-1"
+                            className="text-caption font-bold text-primary hover:underline flex items-center gap-1"
                           >
                             <CgTerminal size={10} />
                             API Docs
@@ -1714,10 +1714,10 @@ export default function CreativeCanvas({
                                 <RiSparklingLine size={16} />
                               </div>
                               <div className="flex-1 min-w-0">
-                                <div className={`font-bold capitalize text-[12px] transition-colors ${activeSkill?.name === skill.name ? "text-primary" : "text-primary-text group-hover:text-primary"}`}>
+                                <div className={`font-bold capitalize text-detail transition-colors ${activeSkill?.name === skill.name ? "text-primary" : "text-primary-text group-hover:text-primary"}`}>
                                   {skill.name}
                                 </div>
-                                <div className="text-[10px] text-secondary-text mt-0.5 line-clamp-1 opacity-70 italic">{skill.description || "Specialized workflow"}</div>
+                                <div className="text-caption text-secondary-text mt-0.5 line-clamp-1 opacity-70 italic">{skill.description || "Specialized workflow"}</div>
                               </div>
                             </button>
                           ))}
@@ -1725,7 +1725,7 @@ export default function CreativeCanvas({
                         <div className="p-2.5 bg-bg-page/50 border-t border-divider text-center">
                           <button 
                             onClick={() => setShowSkillsMenu(false)}
-                            className="text-[10px] font-bold text-secondary-text hover:text-primary-text transition-colors"
+                            className="text-caption font-bold text-secondary-text hover:text-primary-text transition-colors"
                           >
                             Dismiss
                           </button>
@@ -1755,13 +1755,13 @@ export default function CreativeCanvas({
 
                     {showAssetsMenu && (
                       <div className="absolute bottom-full right-0 mb-2 w-72 bg-bg-card border border-divider rounded shadow-2xl z-30 animate-fade-in-up">
-                        <div className="p-2 mb-2 border-b border-divider text-[10px] font-bold text-secondary-text flex items-center justify-between">
+                        <div className="p-2 mb-2 border-b border-divider text-caption font-bold text-secondary-text flex items-center justify-between">
                           <span>Session Assets</span>
                           <span className="opacity-50">{assets.length} items</span>
                         </div>
                         <div className="max-h-80 overflow-y-auto scrollbar-subtle p-2 grid grid-cols-3 gap-2">
                           {assets.length === 0 ? (
-                            <div className="col-span-3 py-8 text-center text-secondary-text text-[10px] italic">No assets generated yet</div>
+                            <div className="col-span-3 py-8 text-center text-secondary-text text-caption italic">No assets generated yet</div>
                           ) : (
                             assets.map((asset, i) => (
                               <div 
@@ -1776,10 +1776,10 @@ export default function CreativeCanvas({
                               >
                                 {asset.kind === "image" && <img src={asset.url} className="w-full h-full object-cover" />}
                                 {asset.kind === "video" && <video src={asset.url} className="w-full h-full object-cover" />}
-                                {asset.kind === "audio" && <div className="w-full h-full flex items-center justify-center bg-primary/5 text-primary text-[8px] font-bold uppercase tracking-tight">Audio</div>}
+                                {asset.kind === "audio" && <div className="w-full h-full flex items-center justify-center bg-primary/5 text-primary text-nano font-bold uppercase tracking-tight">Audio</div>}
                                 
                                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-1 text-center">
-                                  <span className="text-[10px] text-white font-bold truncate w-full mb-1">{asset.asset_label}</span>
+                                  <span className="text-caption text-white font-bold truncate w-full mb-1">{asset.asset_label}</span>
                                 </div>
                               </div>
                             ))
@@ -1824,8 +1824,8 @@ const TOOL_ICONS = {
 
 function EventPill({ event }) {
   if (event.type === "tool_call") return (
-    <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-primary/10 border border-primary text-primary text-[11px] mt-1 shadow-sm">
-      <span>{TOOL_ICONS[event.name] || "🔧"}</span>
+    <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-primary/10 border border-primary text-primary text-compact mt-1 shadow-sm">
+      <span className="text-glyph-compact">{TOOL_ICONS[event.name] || "🔧"}</span>
       <span className="font-semibold">{event.name}</span>
     </div>
   );
@@ -1836,8 +1836,8 @@ function EventPill({ event }) {
     if (event.name === "ask_user" && event.result?.ask_user) {
       const choices = event.result.choices || [];
       return (
-        <div className="px-3 py-2 rounded bg-bg-page border border-primary text-[12px] mt-1 shadow-sm">
-          <div className="font-semibold text-primary mb-1">❓ {event.result.question}</div>
+        <div className="px-3 py-2 rounded bg-bg-page border border-primary text-detail mt-1 shadow-sm">
+          <div className="font-semibold text-primary mb-1"><span className="text-glyph-detail">❓</span> {event.result.question}</div>
           {choices.length > 0 && (
             <div className="flex flex-col gap-1 mt-1">
               {choices.map((c, i) => (
@@ -1845,12 +1845,12 @@ function EventPill({ event }) {
               ))}
             </div>
           )}
-          <div className="text-[10px] text-secondary-text mt-1.5 italic">Reply to continue.</div>
+          <div className="text-caption text-secondary-text mt-1.5 italic">Reply to continue.</div>
         </div>
       );
     }
     return (
-      <div className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded text-[11px] border mt-1 shadow-sm ${
+      <div className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded text-compact border mt-1 shadow-sm ${
         ok
           ? "bg-[var(--color-success-bg)] text-[var(--color-success)] border-[var(--color-success)]"
           : "bg-[var(--color-error-bg)] text-[var(--color-error)] border-[var(--color-error)]"
@@ -1863,13 +1863,13 @@ function EventPill({ event }) {
               : `Failed`}
           </span>
           {ok && model && (
-            <span className="text-[9px] font-bold uppercase tracking-tight opacity-80">
+            <span className="text-micro font-bold uppercase tracking-tight opacity-80">
               {model}
             </span>
           )}
           {!ok && event.result?.error && (
-            <span className="text-[9px] opacity-70 truncate max-w-[160px]" title={event.result.error}>
-              ↺ {String(event.result.error).replace(/^\w+Error:\s*/i, "").substring(0, 60)}
+            <span className="text-micro opacity-70 truncate max-w-[160px]" title={event.result.error}>
+              <span className="text-glyph-micro">↺</span> {String(event.result.error).replace(/^\w+Error:\s*/i, "").substring(0, 60)}
             </span>
           )}
         </div>
@@ -1885,13 +1885,13 @@ function EventPill({ event }) {
       <div className="flex items-center gap-2 px-2 pb-2">
         <button 
           onClick={() => event.onAction?.(event.job_id, "approve")}
-          className="flex-1 py-2 rounded bg-primary text-white text-[12px] font-bold hover:brightness-110 transition-all flex items-center justify-center gap-2"
+          className="flex-1 py-2 rounded bg-primary text-white text-detail font-bold hover:brightness-110 transition-all flex items-center justify-center gap-2"
         >
-          <FiCheck /> Approve & Execute
+          <FiCheck className="text-glyph-detail" /> Approve & Execute
         </button>
         <button 
           onClick={() => event.onAction?.(event.job_id, "reject")}
-          className="px-4 py-2 rounded bg-bg-card border border-divider text-secondary-text text-[12px] hover:bg-bg-page transition-all"
+          className="px-4 py-2 rounded bg-bg-card border border-divider text-secondary-text text-detail hover:bg-bg-page transition-all"
         >
           Cancel
         </button>
@@ -1910,7 +1910,7 @@ function EventPill({ event }) {
     if (event.handled && isApproval) return null;
 
     return (
-      <div className={`px-3 py-2 rounded border text-[11px] mt-1 shadow-sm flex items-center justify-between ${
+      <div className={`px-3 py-2 rounded border text-compact mt-1 shadow-sm flex items-center justify-between ${
         isApproval ? "bg-primary/5 border-primary" : "bg-bg-page border-divider"
       }`}>
         <div className={`flex items-center gap-2 ${isApproval ? "text-primary" : "text-secondary-text"}`}>
@@ -1921,13 +1921,13 @@ function EventPill({ event }) {
           <div className="flex items-center gap-1 ml-4">
             <button 
               onClick={() => event.onAction?.(event.job_id, "approve")}
-              className="px-2 py-1 rounded bg-primary text-white text-[10px] font-bold hover:brightness-110 transition-all"
+              className="px-2 py-1 rounded bg-primary text-white text-caption font-bold hover:brightness-110 transition-all"
             >
               Approve
             </button>
             <button 
               onClick={() => event.onAction?.(event.job_id, "reject")}
-              className="px-2 py-1 rounded bg-bg-card border border-divider text-secondary-text text-[10px] hover:bg-bg-page transition-all"
+              className="px-2 py-1 rounded bg-bg-card border border-divider text-secondary-text text-caption hover:bg-bg-page transition-all"
             >
               Reject
             </button>
@@ -1938,8 +1938,8 @@ function EventPill({ event }) {
   }
 
   if (event.type === "error") return (
-    <div className="px-2.5 py-1.5 rounded bg-[var(--color-error-bg)] text-[var(--color-error)] border border-[var(--color-error)] text-[11px] mt-1 shadow-sm">
-      ❌ {event.message}
+    <div className="px-2.5 py-1.5 rounded bg-[var(--color-error-bg)] text-[var(--color-error)] border border-[var(--color-error)] text-compact mt-1 shadow-sm">
+      <span className="text-glyph-compact">❌</span> {event.message}
     </div>
   );
 
