@@ -67,6 +67,27 @@ const TypingDots = () => (
   </div>
 );
 
+const EMBED_SESSION_KEY_PREFIX = "creative_agent_session_";
+
+function readEmbedSessionId(storage, storageKey, embedCode) {
+  const current = storage.getItem(storageKey);
+  if (current) return current;
+
+  const legacySuffix = `_agent_session_${embedCode}`;
+  for (let index = 0; index < storage.length; index += 1) {
+    const candidateKey = storage.key(index);
+    if (!candidateKey || candidateKey === storageKey || !candidateKey.endsWith(legacySuffix)) {
+      continue;
+    }
+    const legacyValue = storage.getItem(candidateKey);
+    if (!legacyValue) continue;
+    storage.setItem(storageKey, legacyValue);
+    storage.removeItem(candidateKey);
+    return legacyValue;
+  }
+  return null;
+}
+
 export default function CreativeCanvas({
   user,
   theme: forcedTheme,
@@ -82,7 +103,7 @@ export default function CreativeCanvas({
   isEmbed = false,
   // Platform customization props:
   // navLinks: array of { icon, label, path } to show in the user dropdown menu.
-  // If not provided, defaults to the muapiapp links (Explore, Top Up, etc.).
+  // If not provided, the host application's default links are used.
   navLinks = null,
   // userBalanceLabel: string like "$ 5.00" or "1200 credits" to show in the dropdown.
   // If not provided, falls back to "$ {user.balance}".
@@ -96,12 +117,12 @@ export default function CreativeCanvas({
   const router = useRouter();
   const searchParams = useSearchParams();
   const inEmbedMode = isEmbed && !!embedCode;
-  const embedStorageKey = inEmbedMode ? `muapi_agent_session_${embedCode}` : null;
+  const embedStorageKey = inEmbedMode ? `${EMBED_SESSION_KEY_PREFIX}${embedCode}` : null;
   const notifiedGenerationEventsRef = useRef(new Set());
   const generationActivityEventIdsRef = useRef(new Set());
   const [embedSessionId, setEmbedSessionId] = useState(() => {
     if (typeof window === "undefined" || !embedStorageKey) return null;
-    return window.localStorage.getItem(embedStorageKey) || null;
+    return readEmbedSessionId(window.localStorage, embedStorageKey, embedCode);
   });
   const sessionId = inEmbedMode ? embedSessionId : searchParams.get("session");
 
@@ -660,14 +681,14 @@ export default function CreativeCanvas({
       
       // Use the proxy for the actual binary upload to maintain consistency and avoid CORS issues
       const formData = new FormData();
-      formData.append("x-proxy-target-url", url);
+      if (!fields.upload_ticket) formData.append("x-proxy-target-url", url);
       Object.entries(fields).forEach(([key, value]) => {
         formData.append(key, value);
       });
       formData.append("file", file);
 
       // 2. Upload via local proxy
-      await axios.post("/api/v1/upload-binary", formData, {
+      const uploadResponse = await axios.post("/api/v1/upload-binary", formData, {
         headers: { "Content-Type": "multipart/form-data" },
         onUploadProgress: (pe) => {
           setUploadProgress(Math.round((pe.loaded * 100) / pe.total));
@@ -675,7 +696,7 @@ export default function CreativeCanvas({
       });
 
       // 3. Final URL
-      const uploadedUrl = resolveAssetUrl(fields.key);
+      const uploadedUrl = uploadResponse.data?.url || resolveAssetUrl(fields.key);
 
       // 4. Register as a real session asset so the agent can address it as asset_N.
       const kind = file.type?.startsWith("video/") ? "video"
