@@ -91,6 +91,7 @@ export default function CreativeCanvas({
   onGenerationEnd,
   onGenerationComplete,
   onGenerationError,
+  resolveAssetUrl,
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -674,7 +675,7 @@ export default function CreativeCanvas({
       });
 
       // 3. Final URL
-      const uploadedUrl = `https://cdn.muapi.ai/${fields.key}`;
+      const uploadedUrl = resolveAssetUrl(fields.key);
 
       // 4. Register as a real session asset so the agent can address it as asset_N.
       const kind = file.type?.startsWith("video/") ? "video"
