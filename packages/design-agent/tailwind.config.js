@@ -1,6 +1,22 @@
+let hostedTypography = null;
+try {
+  hostedTypography = require('../../../../lib/appearance/typography.cjs');
+} catch {
+  // Standalone consumers keep the package's native Tailwind scale. The shared
+  // Open Generative registry is an optional host integration.
+}
+
+const hostedTypographyTheme = hostedTypography
+  ? {
+      fontSize: hostedTypography.createTailwindFontSize({ includeFallbacks: true }),
+      lineHeight: hostedTypography.createTailwindLineHeight({ includeFallbacks: true }),
+    }
+  : {};
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    ...hostedTypographyTheme,
     extend: {
       colors: {
         primary: "var(--primary)",
