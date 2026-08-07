@@ -9,7 +9,6 @@ import {
   FiPlus, FiSun, FiMoon, FiCheck, FiX, FiEdit2,
   FiArrowLeft, FiAlertCircle, FiCopy,
 } from "react-icons/fi";
-import { CgTerminal } from "react-icons/cg";
 import { BiLoaderAlt } from "react-icons/bi";
 import { RiRobot2Line, RiSparklingLine } from "react-icons/ri";
 // import { useUser } from "@/context/UserContext";
@@ -1327,14 +1326,6 @@ export default function CreativeCanvas({
               <span className="text-caption text-secondary-text mt-1.5">Auto Model • Multi-tool Access</span>
             </div>
             <div className="flex items-center gap-1">
-              <Link 
-                href="https://muapi.ai/docs/design-agent-api" 
-                target="_blank"
-                className="p-1.5 hover:bg-bg-page hover:text-primary-text transition-colors rounded text-secondary-text"
-                title="API Docs"
-              >
-                <CgTerminal size={16} />
-              </Link>
               {sessionId && (
                 <button
                   onClick={() => {
@@ -1690,14 +1681,6 @@ export default function CreativeCanvas({
                           <div>
                             <h3 className="text-detail font-bold text-primary-text uppercase tracking-tight">Expert Skills</h3>
                           </div>
-                          <Link 
-                            href="https://muapi.ai/docs/design-agent-api"
-                            target="_blank" 
-                            className="text-caption font-bold text-primary hover:underline flex items-center gap-1"
-                          >
-                            <CgTerminal size={10} />
-                            API Docs
-                          </Link>
                         </div>
                         <div className="max-h-80 overflow-y-auto p-1.5 scrollbar-subtle">
                           {skills.map(skill => (
